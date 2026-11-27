@@ -24,6 +24,7 @@ async function avatar(raw,res){
 createServer(async(req,res)=>{
  const url=new URL(req.url,'http://local'),path=url.pathname;
  if(path==='/avatar')return avatar(url.searchParams.get('u'),res);
+ if(path==='/health'){res.writeHead(200,{'Content-Type':'text/plain'});res.end('ok');return;}
  const file=files.get(path)||(/^\/images\/[a-z0-9-]+\.webp$/.test(path)?path.slice(1):null);
  if(!file){res.writeHead(404);res.end('Not found');return;}
  try{const data=await readFile(join(root,file));res.writeHead(200,{'Content-Type':mime[extname(file)],'Cache-Control':file.endsWith('.webp')?'public, max-age=86400':'no-store'});res.end(data);}

@@ -1,0 +1,8 @@
+{
+  "slug": "sport-clash",
+  "kind": "server",
+  "port": 8080,
+  "health": "/health",
+  "memory_mb": 64,
+  "static_dir": null
+}
