@@ -1,0 +1,4 @@
+preview-*.png
+node_modules
+service.json
+scripts/
