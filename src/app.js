@@ -77,6 +77,7 @@ async function createResultCard(result,mine,playerName,opponentName,myAvatar='',
  // footer
  ctx.fillStyle=C.hit;para(60,1810,960,14,6);ctx.fill();
  ctx.textAlign='center';ctx.font=F(800,28);ctx.fillStyle=C.mute;ctx.fillText(`${SPORTS[activeSport].name.toUpperCase()} · 5 РАУНД · 1 ЯЛАГЧ`,540,1880);
+ ctx.font='18px system-ui, sans-serif';ctx.fillText(`Зургууд · ${location.host}/photo-credits`,540,1910,960);
  return canvas.toDataURL('image/jpeg',.88);
 }
 
@@ -103,7 +104,7 @@ const picture=(character,kind,label,reel,selection)=>`<div class="fighter ${kind
 
 function renderHome(){
  const avatar=playerAvatar?`<img src="${esc(playerAvatar)}" alt="">`:`<span>${esc(playerName.slice(0,2).toUpperCase())}</span>`;
- root.innerHTML=`<section class="home sport-${sport}"><div class="home-art" aria-hidden="true"></div><h1 class="logo"><span>SPORT</span><b>CLASH</b></h1><div class="home-vs"><div class="vs-side me"><div class="player-avatar">${avatar}</div><strong>${esc(playerName)}</strong></div><div class="vs-mark" aria-hidden="true">VS</div><div class="vs-side foe"><div class="player-avatar">?</div><strong>Өрсөлдөгч</strong></div></div>${sportPick()}<div class="home-actions"><button class="btn-primary" data-play>Тоглох</button><button class="btn-ghost" data-invite ${inviting?'disabled':''}>Найзаа урих</button></div>${status?`<p class="home-status" role="status">${esc(status)}</p>`:''}</section>`;
+ root.innerHTML=`<section class="home sport-${sport}"><div class="home-art" aria-hidden="true"></div><h1 class="logo"><span>SPORT</span><b>CLASH</b></h1><div class="home-vs"><div class="vs-side me"><div class="player-avatar">${avatar}</div><strong>${esc(playerName)}</strong></div><div class="vs-mark" aria-hidden="true">VS</div><div class="vs-side foe"><div class="player-avatar">?</div><strong>Өрсөлдөгч</strong></div></div>${sportPick()}<div class="home-actions"><button class="btn-primary" data-play>Тоглох</button><button class="btn-ghost" data-invite ${inviting?'disabled':''}>Найзаа урих</button></div><a class="photo-credits" href="/photo-credits" target="_blank" rel="noopener">Зургийн эх сурвалж</a>${status?`<p class="home-status" role="status">${esc(status)}</p>`:''}</section>`;
 }
 
 const isReady=id=>id===meId?myReady:!!info[id]?.ready;

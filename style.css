@@ -39,6 +39,7 @@ button{font:inherit;cursor:pointer;color:inherit}button:disabled{cursor:default}
 .home-rules li{display:flex;align-items:baseline;justify-content:center;gap:6px;padding:9px 4px;background:var(--panel);border-top:2px solid var(--line);font-size:11px;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.06em}
 .home-rules b{font-family:var(--display);font-size:20px;color:var(--paper)}
 .home-actions{display:grid;gap:10px}
+.photo-credits{align-self:center;padding:4px 8px;color:var(--mute);font-size:12px;text-underline-offset:3px}
 .home-status{margin:0;color:#ffb3c4;text-align:center;font-size:12px}
 @media(max-height:700px){.home{gap:9px}.player-avatar{width:64px;height:64px}.vs-mark{font-size:32px}.btn-primary{min-height:50px}}
 

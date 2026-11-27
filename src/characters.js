@@ -21,20 +21,20 @@ export const SPORTS={
 };
 
 const TEAMS={
- LAL:['Lakers','#552583','#FDB927'],BOS:['Celtics','#007A33','#FFFFFF'],CHI:['Bulls','#CE1141','#FFFFFF'],GSW:['Warriors','#1D428A','#FFC72C'],
- SAS:['Spurs','#111111','#C4CED4'],MIA:['Heat','#98002E','#F9A01B'],PHI:['76ers','#006BB6','#FFFFFF'],DET:['Pistons','#C8102E','#FFFFFF'],
- NYK:['Knicks','#006BB6','#F58426'],HOU:['Rockets','#CE1141','#FFFFFF'],PHX:['Suns','#1D1160','#E56020'],DAL:['Mavericks','#00538C','#FFFFFF'],
- UTA:['Jazz','#002B5C','#F9A01B'],OKC:['Thunder','#007AC1','#FFFFFF'],SEA:['SuperSonics','#00653A','#FFC200'],MIL:['Bucks','#00471B','#EEE1C6'],
- DEN:['Nuggets','#0E2240','#FEC524'],MIN:['Timberwolves','#0C2340','#78BE20'],CLE:['Cavaliers','#860038','#FDBB30'],ATL:['Hawks','#E03A3E','#FFFFFF'],
- ORL:['Magic','#0077C0','#FFFFFF'],POR:['Trail Blazers','#111111','#E03A3E'],SAC:['Kings','#5A2D81','#FFFFFF'],IND:['Pacers','#002D62','#FDBB30'],
- TOR:['Raptors','#CE1141','#FFFFFF'],NJN:['Nets','#002A60','#FFFFFF'],MEM:['Grizzlies','#12173F','#5D76A9'],NOP:['Pelicans','#0C2340','#C8102E'],
- LAC:['Clippers','#C8102E','#FFFFFF'],CHA:['Hornets','#00788C','#FFFFFF'],WAS:['Wizards','#002B5C','#E31837'],
- RMA:['Real Madrid','#F4F4F4','#1B2A5B'],BAR:['Barcelona','#A50044','#FDC52C'],MUN:['Man United','#DA291C','#FFFFFF'],JUV:['Juventus','#111111','#FFFFFF'],
- ACM:['AC Milan','#C8102E','#111111'],INT:['Inter','#0068A8','#111111'],BAY:['Bayern','#DC052D','#FFFFFF'],LIV:['Liverpool','#C8102E','#FFFFFF'],
- CHE:['Chelsea','#034694','#FFFFFF'],ARS:['Arsenal','#EF0107','#FFFFFF'],MCI:['Man City','#6CABDD','#1C2C5B'],PSG:['PSG','#004170','#DA291C'],
- ATM:['Atlético','#CB3524','#FFFFFF'],BVB:['Dortmund','#FDE100','#111111'],ROM:['Roma','#8E1F2F','#F0BC42'],TOT:['Tottenham','#F4F4F4','#132257'],
- NAP:['Napoli','#12A0D7','#FFFFFF'],FIO:['Fiorentina','#482E92','#FFFFFF'],LAZ:['Lazio','#87D8F7','#13264D'],SAO:['São Paulo','#F4F4F4','#FE0000'],
- VEL:['Vélez','#F4F4F4','#0033A0'],NAC:['Nacional','#00A859','#FFFFFF'],LEI:['Leicester','#003090','#FDBE11'],AVL:['Aston Villa','#670E36','#95BFE5']
+ LAL:'Lakers',BOS:'Celtics',CHI:'Bulls',GSW:'Warriors',
+ SAS:'Spurs',MIA:'Heat',PHI:'76ers',DET:'Pistons',
+ NYK:'Knicks',HOU:'Rockets',PHX:'Suns',DAL:'Mavericks',
+ UTA:'Jazz',OKC:'Thunder',SEA:'SuperSonics',MIL:'Bucks',
+ DEN:'Nuggets',MIN:'Timberwolves',CLE:'Cavaliers',ATL:'Hawks',
+ ORL:'Magic',POR:'Trail Blazers',SAC:'Kings',IND:'Pacers',
+ TOR:'Raptors',NJN:'Nets',MEM:'Grizzlies',NOP:'Pelicans',
+ LAC:'Clippers',CHA:'Hornets',WAS:'Wizards',
+ RMA:'Real Madrid',BAR:'Barcelona',MUN:'Man United',JUV:'Juventus',
+ ACM:'AC Milan',INT:'Inter',BAY:'Bayern',LIV:'Liverpool',
+ CHE:'Chelsea',ARS:'Arsenal',MCI:'Man City',PSG:'PSG',
+ ATM:'Atlético',BVB:'Dortmund',ROM:'Roma',TOT:'Tottenham',
+ NAP:'Napoli',FIO:'Fiorentina',LAZ:'Lazio',SAO:'São Paulo',
+ VEL:'Vélez',NAC:'Nacional',LEI:'Leicester',AVL:'Aston Villa'
 };
 
 const NBA=[
@@ -123,17 +123,9 @@ const FB=[
  ['ХБ','Wojciech Szczęsny','JUV','1',0,0,600,10,0],['ХБ','Kasper Schmeichel','LEI','1',0,0,850,3,0],['ХБ','Emiliano Martínez','AVL','23',0,0,350,6,0]
 ];
 
-const shirt=(sport,c1,c2,number)=>{
- const body=sport==='nba'
-  ?'M96 70 Q120 96 150 96 Q180 96 204 70 L232 82 Q226 140 236 170 L236 380 L64 380 L64 170 Q74 140 68 82 Z'
-  :'M104 62 Q150 92 196 62 L262 92 L246 158 L216 148 L216 380 L84 380 L84 148 L54 158 L38 92 Z';
- const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 400"><defs><radialGradient id="g" cx=".5" cy=".35" r=".8"><stop offset="0" stop-color="${c1}" stop-opacity=".55"/><stop offset="1" stop-color="#07070d"/></radialGradient></defs><rect width="300" height="400" fill="url(#g)"/><path d="${body}" fill="${c1}" stroke="${c2}" stroke-width="7" stroke-linejoin="round"/><text x="150" y="${number.length>1?292:296}" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="${number.length>1?120:140}" text-anchor="middle" fill="${c2}" stroke="#07070d" stroke-opacity=".25" stroke-width="3">${number}</text></svg>`;
- return `data:image/svg+xml,${encodeURIComponent(svg)}`;
-};
-
-const build=(sport,rows)=>rows.map(([pos,name,team,number,...stats],i)=>{
- const [teamName,c1,c2]=TEAMS[team];
- return {id:`${sport}-${i}`,sport,seriesId:`${sport}-${pos}`,series:`${pos} · ${teamName}`,name,stats,image:shirt(sport,c1,c2,number)};
+const build=(sport,rows)=>rows.map(([pos,name,team,,...stats],i)=>{
+ const slug=name.normalize('NFD').replace(/\p{M}/gu,'').toLowerCase().replace(/['’]/g,'').replace(/[^a-z0-9]+/g,'-');
+ return {id:`${sport}-${i}`,sport,seriesId:`${sport}-${pos}`,series:`${pos} · ${TEAMS[team]}`,name,stats,image:`/images/${slug}.webp`};
 });
 
 export const ALL=[...build('nba',NBA),...build('fb',FB)];

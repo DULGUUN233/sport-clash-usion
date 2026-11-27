@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {ALL,SPORTS} from '../src/characters.js';
 
 test('each sport has 120 players, 24 per position, five real stats',()=>{
@@ -9,6 +10,16 @@ test('each sport has 120 players, 24 per position, five real stats',()=>{
   assert.equal(players.length,120,key);
   assert.equal(new Set(players.map(p=>p.name)).size,120,key);
   for(const pos of s.positions)assert.equal(players.filter(p=>p.seriesId===`${key}-${pos}`).length,24,`${key} ${pos}`);
-  for(const p of players){assert.equal(p.stats.length,5);assert.ok(p.stats.every(v=>typeof v==='number'&&v>=0),p.name);assert.match(p.image,/^data:image\/svg\+xml,/);}
+  for(const p of players){assert.equal(p.stats.length,5);assert.ok(p.stats.every(v=>typeof v==='number'&&v>=0),p.name);}
+ }
+});
+
+test('every athlete has a distinct WebP portrait in the game bundle',()=>{
+ assert.equal(new Set(ALL.map(p=>p.image)).size,ALL.length);
+ for(const p of ALL){
+  assert.match(p.image,/^\/images\/[a-z0-9-]+\.webp$/,p.name);
+  const bytes=readFileSync(new URL(`..${p.image}`,import.meta.url));
+  assert.equal(bytes.toString('ascii',0,4),'RIFF',p.name);
+  assert.equal(bytes.toString('ascii',8,12),'WEBP',p.name);
  }
 });
