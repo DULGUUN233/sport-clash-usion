@@ -1,0 +1,14 @@
+{
+  "name": "Sport Clash",
+  "description": "Сагс, хөлбөмбөгийн одуудын бодит үзүүлэлтээр 5 раунд тулалд. Тамирчин бүрийг үзүүлэлтэд оноож, ботыг эсвэл найзаа ял.",
+  "service_type": "app",
+  "cost": 0,
+  "tags": ["game", "multiplayer", "iframe", "sport"],
+  "genre": "strategy",
+  "max_players": 2,
+  "game_config": {"min_players": 2, "max_players": 2},
+  "realtime": {"connection_mode": "platform", "connection_transport": "websocket"},
+  "leaderboard": {"enabled": true, "order": "desc", "mode": "best", "metric": "score"},
+  "is_published": false,
+  "visibility": "private"
+}
