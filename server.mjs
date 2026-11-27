@@ -4,8 +4,8 @@ import {fileURLToPath} from 'node:url';
 import {join,extname} from 'node:path';
 
 const root=fileURLToPath(new URL('.',import.meta.url));
-const files=new Map([['/','index.html'],['/photo-credits','images/credits.html'],['/style.css','style.css'],['/src/app.js','src/app.js'],['/src/engine.js','src/engine.js'],['/src/characters.js','src/characters.js']]);
-const mime={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.webp':'image/webp'};
+const files=new Map([['/','index.html'],['/photo-credits','images/credits.html'],['/images/sport-clash-profile-generations.png','images/sport-clash-profile-generations.png'],['/style.css','style.css'],['/src/app.js','src/app.js'],['/src/engine.js','src/engine.js'],['/src/characters.js','src/characters.js']]);
+const mime={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.webp':'image/webp','.png':'image/png'};
 const port=Number(process.env.PORT||4195);
 
 async function avatar(raw,res){

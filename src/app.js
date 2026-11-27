@@ -65,14 +65,15 @@ async function createResultCard(result,mine,playerName,opponentName,myAvatar='',
   ctx.restore();ctx.save();para(x,y,w,h,14);ctx.lineWidth=5;ctx.strokeStyle=lost?C.mute:edge;ctx.stroke();ctx.restore();};
  for(let i=0;i<ordered.length;i++){
   const {row,left,right,a,b}=ordered[i],y=830+i*190;
+  const leftWon=row.winner===mine,rightWon=row.winner===opponent;
   ctx.fillStyle=C.panel;para(60,y,960,170,20);ctx.fill();
-  portrait(images[i*2],80,y+12,120,146,a<b,C.p1);portrait(images[i*2+1],880,y+12,120,146,b<a,C.p2);
-  ctx.textAlign='left';ctx.font='800 30px system-ui, sans-serif';ctx.fillStyle=a<b?C.mute:C.paper;ctx.fillText(fit(left.name,250),222,y+70);
-  ctx.textAlign='right';ctx.fillStyle=b<a?C.mute:C.paper;ctx.fillText(fit(right.name,250),858,y+70);
+  portrait(images[i*2],80,y+12,120,146,rightWon,C.p1);portrait(images[i*2+1],880,y+12,120,146,leftWon,C.p2);
+  ctx.textAlign='left';ctx.font='800 30px system-ui, sans-serif';ctx.fillStyle=rightWon?C.mute:C.paper;ctx.fillText(fit(left.name,250),222,y+70);
+  ctx.textAlign='right';ctx.fillStyle=leftWon?C.mute:C.paper;ctx.fillText(fit(right.name,250),858,y+70);
   ctx.textAlign='center';ctx.font=F(800,22);ctx.fillStyle=C.hit;const label=row.stat.mn.toUpperCase(),lw=ctx.measureText(label).width;ctx.fillText(label,557,y+42);if(icons[i])ctx.drawImage(icons[i],540-lw/2-23,y+16,34,34);
   ctx.font=F(900,56);
-  ctx.fillStyle=a>b?C.win:a<b?C.p2:C.mute;ctx.fillText(fmt(a),440,y+138);
-  ctx.fillStyle=b>a?C.win:b<a?C.p2:C.mute;ctx.fillText(fmt(b),640,y+138);
+  ctx.fillStyle=leftWon?C.win:rightWon?C.p2:C.mute;ctx.fillText(fmt(a),440,y+138);
+  ctx.fillStyle=rightWon?C.win:leftWon?C.p2:C.mute;ctx.fillText(fmt(b),640,y+138);
  }
  // footer
  ctx.fillStyle=C.hit;para(60,1810,960,14,6);ctx.fill();
@@ -147,10 +148,10 @@ function renderDone(){
   const active=resultStep>=0&&resultStep<10&&Math.floor(resultStep/2)===index&&resultStep%2===0;
   const settled=finished||resultStep>=0&&(index<Math.floor(resultStep/2)||index===Math.floor(resultStep/2)&&resultStep%2===1);
   const showScores=settled;
-  const leftLoss=settled&&aScore<bScore?'loser':'';
-  const rightLoss=settled&&bScore<aScore?'loser':'';
-  const mark=aScore===bScore?'even':aScore>bScore?'victor':'defeat';
-  const other=aScore===bScore?'even':aScore<bScore?'victor':'defeat';
+  const leftLoss=settled&&r.winner===theirs?'loser':'';
+  const rightLoss=settled&&r.winner===mine?'loser':'';
+  const mark=r.winner===null?'even':r.winner===mine?'victor':'defeat';
+  const other=r.winner===null?'even':r.winner===theirs?'victor':'defeat';
   return `<div class="result-row ${active?'dueling':''} ${settled?'settled':''}"><img class="${leftLoss}" src="${a.image}" alt=""><span class="left ${leftLoss}"><b>${esc(a.name)}</b><small>${r.stat.mn}</small></span><strong class="${showScores?mark:''} ${leftLoss}">${showScores?fmt(aScore):'—'}</strong><strong class="${showScores?other:''} ${rightLoss}">${showScores?fmt(bScore):'—'}</strong><span class="right ${rightLoss}"><b>${esc(b.name)}</b><small>${r.stat.mn}</small></span><img class="${rightLoss}" src="${b.image}" alt=""></div>`;
  }).join('');
  const outcome=result.winner===null?'draw':result.winner===mine?'win':'lose';
@@ -160,11 +161,11 @@ function renderDone(){
  if(resultStep>=0&&resultStep<10){
   const idx=Math.floor(resultStep/2),hit=resultStep%2===1,r=result.rows[idx];
   const a=mine===0?r.a:r.b,b=mine===0?r.b:r.a,aS=mine===0?r.left:r.right,bS=mine===0?r.right:r.left;
-  const st=(x,y)=>!hit?'':x>y?'win':x<y?'ko':'even';
+  const st=seat=>!hit?'':r.winner===null?'even':r.winner===seat?'win':'ko';
   const side=(c,sc,cls)=>`<div class="clash-card ${cls}"><i><img src="${c.image}" alt=""></i><b>${esc(c.name)}</b><strong>${fmt(sc)}</strong></div>`;
-  clash=`<div class="clash ${hit?'hit':'in'} ${resultStep===0?'first':''}" aria-hidden="true"><div class="clash-round">${idx+1} / 5</div><div class="clash-stat"><img src="${r.stat.img}" alt="">${esc(r.stat.mn)}</div><div class="clash-fighters">${side(a,aS,'me '+st(aS,bS))}<div class="clash-burst">VS</div>${side(b,bS,'foe '+st(bS,aS))}</div></div>`;
+  clash=`<div class="clash ${hit?'hit':'in'} ${resultStep===0?'first':''}" aria-hidden="true"><div class="clash-round">${idx+1} / 5</div><div class="clash-stat"><img src="${r.stat.img}" alt="">${esc(r.stat.mn)}</div><div class="clash-fighters">${side(a,aS,'me '+st(mine))}<div class="clash-burst">VS</div>${side(b,bS,'foe '+st(theirs))}</div></div>`;
  }
- root.innerHTML=`${clash}<section class="results"><div class="results-head"><div class="eyebrow">5 ТУЛААНЫ ДҮН</div><h1>ТУЛААНЫ ДҮН</h1><p class="subtitle">${finished?'Ялагч тодорлоо':resultStep===-1?'Тамирчид бэлэн':'Оноо нээгдэж байна'}</p></div><div class="result-list">${rows}</div>${summary}</section>`;
+ root.innerHTML=`${clash}<section class="results"><div class="results-head"><div class="eyebrow">5 ТУЛААНЫ ДҮН</div><h1>ТУЛААНЫ ДҮН</h1><p class="subtitle">${finished?'Ялагч тодорлоо':resultStep===-1?'Тамирчид бэлэн':'Оноо нээгдэж байна'}</p></div><div class="result-list">${rows}</div>${finished&&result.rows.some(r=>r.left===null||r.right===null)?'<p class="subtitle">— Бүрэн бүртгэлгүй үзүүлэлт. Энэ мөрөнд оноо олгохгүй.</p>':''}${summary}</section>`;
  if(finished&&outcome==='win')submitWin(result);
 }
 

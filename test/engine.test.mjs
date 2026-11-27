@@ -41,6 +41,16 @@ test('scores compare only matching stats; bot uses a vacant stat',()=>{
  let game=start(deal(()=>.37));
  for(let i=0;i<5;i++){game=pick(game,0,i);game=pick(game,1,botPick(game,()=>.2));}
  const result=results(game);
- assert.equal(result.scores[0]+result.scores[1],result.rows.filter(r=>r.left!==r.right).length);
+ assert.equal(result.scores[0]+result.scores[1],result.rows.filter(r=>r.left!==null&&r.right!==null&&r.left!==r.right).length);
  assert.equal(result.winner,result.scores[0]===result.scores[1]?null:result.scores[0]>result.scores[1]?0:1);
+});
+
+test('an unrecorded career stat awards neither side a point',()=>{
+ const russell=[...BY_ID.values()].find(p=>p.name==='Bill Russell');
+ const jordan=[...BY_ID.values()].find(p=>p.name==='Michael Jordan');
+ const state={phase:'done',slots:[Array(5).fill(russell.id),Array(5).fill(jordan.id)]};
+ const row=results(state).rows[4];
+ assert.equal(row.left,null);
+ assert.ok(row.right>0);
+ assert.equal(row.winner,null);
 });

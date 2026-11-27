@@ -37,6 +37,8 @@ const TEAMS={
  VEL:'Vélez',NAC:'Nacional',LEI:'Leicester',AVL:'Aston Villa'
 };
 
+// Appended cards retain the original card IDs. Basketball-Reference season totals stop at 2024-25.
+// A null marks an incomplete or unavailable career total.
 const NBA=[
  ['PG','Magic Johnson','LAL','32',17667,6523,10147,1721,362],['PG','Stephen Curry','GSW','30',25342,4822,6566,1539,205],['PG','Chris Paul','LAC','3',23290,6165,12604,2740,137],
  ['PG','Isiah Thomas','DET','11',18797,3524,9105,1860,294],['PG','John Stockton','UTA','12',19702,4061,15792,3309,301],['PG','Steve Nash','PHX','13',17403,3651,10344,852,122],
@@ -77,9 +79,64 @@ const NBA=[
  ['C','Bill Walton','POR','32',6224,4914,1591,374,1030],['C','Robert Parish','BOS','00',23360,14660,2255,1289,2416],['C','Ben Wallace','DET','3',6202,10445,1414,1414,2176],
  ['C','Rudy Gobert','UTA','27',10578,9976,1118,602,1720],['C','Victor Wembanyama','SAS','1',4014,1944,630,216,666],['C','Karl-Anthony Towns','MIN','32',15801,7590,2139,552,828],
  ['C','Bam Adebayo','MIA','13',9333,5368,2135,671,488],['C','Artis Gilmore','CHI','53',15544,9181,1909,454,1818],['C','Bob Lanier','DET','16',19276,9686,2973,725,1100],
- ['C','Mark Eaton','UTA','53',5250,6912,700,350,3062],['C','Domantas Sabonis','SAC','10',11454,7728,3312,552,276],['C','Zydrunas Ilgauskas','CLE','11',10959,6491,1096,422,1349]
+ ['C','Mark Eaton','UTA','53',5250,6912,700,350,3062],['C','Domantas Sabonis','SAC','10',11454,7728,3312,552,276],['C','Zydrunas Ilgauskas','CLE','11',10959,6491,1096,422,1349],
+ ['PG','Nate Archibald','Kansas City Kings',null,16481,2046,6476,null,null],
+ ['SF','Paul Arizin','Philadelphia Warriors',null,16266,6129,1665,null,null],
+ ['SF','Rick Barry','GSW',null,18395,5168,4017,null,null],
+ ['SF','Elgin Baylor','LAL',null,23149,11463,3650,null,null],
+ ['PG','Dave Bing','DET',null,18327,3420,5397,null,null],
+ ['C','Wilt Chamberlain','PHI',null,31419,23924,4643,null,null],
+ ['PG','Bob Cousy','BOS',null,16960,4786,6955,null,null],
+ ['C','Dave Cowens','BOS',null,13516,10444,2910,null,null],
+ ['SF','Billy Cunningham','PHI',null,13626,6638,2625,null,null],
+ ['PF','Dave DeBusschere','NYK',null,14053,9618,2497,null,null],
+ ['PG','Walt Frazier','NYK',null,15581,4830,5040,null,null],
+ ['SG','Hal Greer','PHI',null,21586,5665,4540,null,null],
+ ['SF','John Havlicek','BOS',null,26395,8007,6114,null,null],
+ ['PF','Elvin Hayes','WAS',null,27313,16279,2398,null,null],
+ ['SG','Sam Jones','BOS',null,15411,4305,2209,null,null],
+ ['PF','Jerry Lucas','NYK',null,14053,12942,2732,null,null],
+ ['SG','Pete Maravich','UTA',null,15948,2747,3563,null,null],
+ ['C','Bob McAdoo','Buffalo Braves',null,18787,8048,1951,null,1363],
+ ['C','George Mikan','Minneapolis Lakers',null,10156,null,1245,null,null],
+ ['SG','Earl Monroe','NYK',null,17454,2796,3594,null,null],
+ ['PF','Bob Pettit','St. Louis Hawks',null,20880,12849,2369,null,null],
+ ['C','Willis Reed','NYK',null,12183,8414,1186,null,null],
+ ['PG','Oscar Robertson','Cincinnati Royals',null,26710,7804,9887,null,null],
+ ['C','Bill Russell','BOS',null,14522,21620,4100,null,null],
+ ['PF','Dolph Schayes','Syracuse Nationals',null,18438,null,3072,null,null],
+ ['SG','Bill Sharman','BOS',null,12665,2793,2101,null,null],
+ ['C','Nate Thurmond','GSW',null,14437,14464,2575,null,null],
+ ['C','Wes Unseld','Baltimore Bullets',null,10624,13769,3822,null,null],
+ ['SG','Jerry West','LAL',null,25192,5366,6238,null,null],
+ ['PG','Lenny Wilkens','St. Louis Hawks',null,17772,5030,7211,null,null],
+ ['PG','Jalen Brunson','NYK',null,8821,1549,2449,351,48],
+ ['PG','Cade Cunningham','DET',null,4588,1121,1530,215,125],
+ ['PG','Tyrese Haliburton','IND',null,5842,1218,2947,490,199],
+ ['PG','Tyrese Maxey','PHI',null,6202,952,1403,290,107],
+ ['PG','Jamal Murray','DEN',null,9623,2018,2509,542,197],
+ ['PG','De\'Aaron Fox','SAC',null,11399,2082,3262,756,221],
+ ['SG','Jalen Green','HOU',null,6173,1310,1030,240,91],
+ ['SG','Desmond Bane','MEM',null,5580,1438,1179,312,117],
+ ['SG','Tyler Herro','MIA',null,6987,1802,1460,263,70],
+ ['SG','Jalen Suggs','ORL',null,2598,702,698,283,126],
+ ['SF','Jalen Williams','OKC',null,3901,988,924,294,126],
+ ['SF','Franz Wagner','ORL',null,5552,1408,1067,296,100],
+ ['SF','Mikal Bridges','NYK',null,8204,2207,1517,650,317],
+ ['SF','OG Anunoby','NYK',null,6333,2144,831,637,289],
+ ['PF','Pascal Siakam','IND',null,11325,4183,2261,569,374],
+ ['PF','Evan Mobley','CLE',null,4412,2408,784,222,419],
+ ['PF','Jaren Jackson Jr.','MEM',null,7518,2258,602,414,777],
+ ['PF','Lauri Markkanen','UTA',null,8200,3201,657,314,222],
+ ['PF','Julius Randle','NYK',null,13517,6491,2710,486,284],
+ ['C','Chet Holmgren','OKC',null,1836,905,263,76,261],
+ ['C','Alperen Şengün','HOU',null,4583,2446,1160,289,245],
+ ['C','Jarrett Allen','CLE',null,7288,5239,948,371,703],
+ ['C','Ivica Zubac','LAC',null,5953,4742,794,218,575]
 ];
 
+// Added football cards use senior first-team match logs through June 2025 (Transfermarkt),
+// historical career tables, documented senior honours and European Cup/Champions League goals.
 const FB=[
  ['ДШ','Cristiano Ronaldo','RMA','7',800,240,1060,35,140],['ДШ','Robert Lewandowski','BAY','9',590,150,850,31,105],['ДШ','Zlatan Ibrahimović','PSG','10',508,200,820,34,48],
  ['ДШ','Karim Benzema','RMA','9',470,190,900,35,90],['ДШ','Luis Suárez','BAR','9',510,260,880,23,27],['ДШ','Thierry Henry','ARS','14',360,180,800,16,50],
@@ -120,12 +177,58 @@ const FB=[
  ['ХБ','Marc-André ter Stegen','BAR','1',0,1,600,18,0],['ХБ','Rogério Ceni','SAO','1',131,0,1250,20,0],['ХБ','José Luis Chilavert','VEL','1',54,0,700,15,0],
  ['ХБ','René Higuita','NAC','1',40,0,600,8,0],['ХБ','Dino Zoff','JUV','1',0,0,640,13,0],['ХБ','Hugo Lloris','TOT','1',0,0,720,3,0],
  ['ХБ','David Seaman','ARS','1',0,0,750,13,0],['ХБ','Keylor Navas','RMA','1',0,0,700,20,0],['ХБ','Gianluigi Donnarumma','PSG','99',0,0,450,14,0],
- ['ХБ','Wojciech Szczęsny','JUV','1',0,0,600,10,0],['ХБ','Kasper Schmeichel','LEI','1',0,0,850,3,0],['ХБ','Emiliano Martínez','AVL','23',0,0,350,6,0]
+ ['ХБ','Wojciech Szczęsny','JUV','1',0,0,600,10,0],['ХБ','Kasper Schmeichel','LEI','1',0,0,850,3,0],['ХБ','Emiliano Martínez','AVL','23',0,0,350,6,0],
+ ['ДШ','Pelé','Santos',null,680,null,723,29,0],
+ ['ХГ','Diego Maradona','NAP',null,311,null,589,10,2],
+ ['ДШ','Johan Cruyff','Ajax',null,400,null,713,23,19],
+ ['ДШ','Ferenc Puskás','RMA',null,624,null,629,15,36],
+ ['ДШ','Alfredo Di Stéfano','RMA',null,480,null,669,23,49],
+ ['ДШ','Eusébio','Benfica',null,581,null,572,18,47],
+ ['ДШ','Gerd Müller','BAY',null,656,null,718,15,34],
+ ['ЖГ','Garrincha','Botafogo',null,null,null,null,5,0],
+ ['ЖГ','George Best','MUN',null,251,null,705,6,9],
+ ['ХГ','Michel Platini','JUV',null,313,null,582,12,17],
+ ['ХГ','Bobby Charlton','MUN',null,263,null,812,8,10],
+ ['ХГ','Lothar Matthäus','BAY',null,204,null,782,19,5],
+ ['ХГ','Ruud Gullit','ACM',null,219,null,575,19,5],
+ ['ДШ','Roberto Baggio','JUV',null,291,null,643,4,4],
+ ['ЖГ','David Beckham','MUN',null,129,null,729,21,16],
+ ['ХМ','Franz Beckenbauer','BAY',null,98,null,754,19,4],
+ ['ХМ','Franco Baresi','ACM',null,33,null,719,21,0],
+ ['ХМ','Bobby Moore','West Ham',null,28,null,795,4,0],
+ ['ХМ','Carlos Alberto Torres','Santos',null,64,null,762,16,0],
+ ['ХБ','Lev Yashin','Dynamo Moscow',null,0,null,358,10,0],
+ ['ХБ','Gordon Banks','Stoke City',null,0,null,682,3,0],
+ ['ХБ','Sepp Maier','BAY',null,0,null,709,15,0],
+ ['ХГ','Jamal Musiala','BAY',null,64,39,206,12,7],
+ ['ХГ','Florian Wirtz','Bayer Leverkusen',null,57,65,197,3,6],
+ ['ХГ','Vitinha','PSG',null,24,21,231,14,4],
+ ['ХГ','Federico Valverde','RMA',null,32,33,358,16,3],
+ ['ХГ','Declan Rice','ARS',null,31,33,348,2,4],
+ ['ХГ','Cole Palmer','CHE',null,46,30,135,9,1],
+ ['ЖГ','Raphinha','BAR',null,110,88,373,7,16],
+ ['ЖГ','Khvicha Kvaratskhelia','NAP',null,60,61,253,6,5],
+ ['ЖГ','Rodrygo','RMA',null,85,59,349,13,25],
+ ['ЖГ','Luis Díaz','LIV',null,105,52,421,14,10],
+ ['ЖГ','Nico Williams','Athletic Club',null,31,30,167,2,0],
+ ['ЖГ','Michael Olise','BAY',null,43,62,217,1,5],
+ ['ДШ','Julián Álvarez','ATM',null,119,58,282,17,15],
+ ['ДШ','Alexander Isak','Newcastle',null,134,28,301,3,1],
+ ['ДШ','Lautaro Martínez','INT',null,180,56,397,11,21],
+ ['ДШ','Viktor Gyökeres','Sporting CP',null,174,59,333,4,6],
+ ['ДШ','Victor Osimhen','NAP',null,151,36,264,3,9],
+ ['ХМ','William Saliba','ARS',null,8,2,244,2,0],
+ ['ХМ','Alessandro Bastoni','INT',null,7,24,291,8,0],
+ ['ХМ','Joško Gvardiol','MCI',null,20,11,235,10,3],
+ ['ХМ','Nuno Mendes','PSG',null,10,20,180,14,5],
+ ['ХБ','Mike Maignan','ACM',null,0,3,343,4,0],
+ ['ХБ','David Raya','ARS',null,0,1,385,2,0],
+ ['ХБ','Yann Sommer','INT',null,0,1,713,10,0]
 ];
 
 const build=(sport,rows)=>rows.map(([pos,name,team,,...stats],i)=>{
- const slug=name.normalize('NFD').replace(/\p{M}/gu,'').toLowerCase().replace(/['’]/g,'').replace(/[^a-z0-9]+/g,'-');
- return {id:`${sport}-${i}`,sport,seriesId:`${sport}-${pos}`,series:`${pos} · ${TEAMS[team]}`,name,stats,image:`/images/${slug}.webp`};
+ const slug=name.normalize('NFD').replace(/\p{M}/gu,'').toLowerCase().replace(/['’]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/-$/,'');
+ return {id:`${sport}-${i}`,sport,seriesId:`${sport}-${pos}`,series:`${pos} · ${TEAMS[team]??team}`,name,stats,image:`/images/${slug}.webp`};
 });
 
 export const ALL=[...build('nba',NBA),...build('fb',FB)];
